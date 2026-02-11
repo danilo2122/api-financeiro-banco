@@ -1,0 +1,80 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #726fb1;
+  padding: 15px 30px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.logo span {
+  color: #4864f0;
+}
+
+.nav a {
+  color: #ffffff;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.nav a:hover {
+  text-decoration: underline;
+}
+body{
+    background-color: #334155;
+    padding: 30px;
+}
+h1{
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+    
+}
+input,select,button{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius:7px;
+    border: 1px solid black
+}
+button{
+    background: black;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+button:hover{
+    background: rgb(14, 145, 221);
+
+}
+.transiction{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-top:8px ;
+    border-radius: 6px;
+    background: #1bb2d8;
+
+}
+.transaction.entrada {
+  border-left: 5px solid #16a34a;
+}
+
+.transaction.saida {
+  border-left: 5px solid #dc2626;
+}

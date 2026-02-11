@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Financeiro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+  <div class="logo">Bs<span>Bank</span></div>
+
+  <nav class="nav">
+    <a href="#">Início</a>
+    <a href="#">Contas</a>
+    <a href="#">Transações</a>
+    <a href="#">Perfil</a>
+  </nav>
+</header>
+
+
+  <h1>API Financeira</h1>
+
+
+  <h2>Criar Usuário</h2>
+  <input id="nome" placeholder="Nome">
+  <input id="email" placeholder="Email">
+  <input id="senha" placeholder="Senha">
+  <button onclick="criarUsuario()">Criar</button>
+
+  <p id="msg"></p>
+
+  <hr>
+
+  
+  <h2>Usuários</h2>
+  <button onclick="listarUsuarios()">Listar usuários</button>
+  <ul id="listaUsuarios"></ul>
+
+  <script>
+    const API_URL = "http://localhost:3000";
+
+    async function criarUsuario() {
+      const nome = document.getElementById("nome").value;
+      const email = document.getElementById("email").value;
+      const senha = document.getElementById("senha").value;
+
+      const res = await fetch(`${API_URL}/users`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ nome, email, senha })
+      });
+
+      const data = await res.json();
+      document.getElementById("msg").innerText = data.message || data.error;
+    }
+
+    async function listarUsuarios() {
+      const res = await fetch(`${API_URL}/users`);
+      const usuarios = await res.json();
+
+      const lista = document.getElementById("listaUsuarios");
+      lista.innerHTML = "";
+
+      usuarios.forEach(u => {
+        const li = document.createElement("li");
+        li.innerText = `${u.nome} - ${u.email}`;
+        lista.appendChild(li);
+      });
+    }
+  </script>
+<h2>Nova Transação</h2>
+<input id="userId" placeholder="ID do usuário">
+<input id="valor" placeholder="Valor">
+<input id="descricao" placeholder="Descrição">
+<select id="tipo">
+  <option value="entrada">Entrada</option>
+  <option value="saida">Saída</option>
+</select>
+<button onclick="criarTransacao()">Salvar</button>
+
+<script>
+async function criarTransacao() {
+  const user_id = document.getElementById("userId").value;
+  const valor = document.getElementById("valor").value;
+  const descricao = document.getElementById("descricao").value;
+  const tipo = document.getElementById("tipo").value;
+
+  await fetch(`${API_URL}/transactions`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ user_id, tipo, valor, descricao })
+  });
+
+  alert("Transação criada!");
+}
+</script>
+<button onclick="verSaldo()">Ver saldo</button>
+
+<script>
+async function verSaldo() {
+  const userId = document.getElementById("userId").value;
+  const res = await fetch(`${API_URL}/balance/${userId}`);
+  const data = await res.json();
+  alert("Saldo: R$ " + data.saldo);
+}
+</script>
+
+</body>
+</html>
